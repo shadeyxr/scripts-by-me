@@ -1,0 +1,149 @@
+getgenv().autoRebirth = false;
+getgenv().autoBurp = false;
+getgenv().autoDrink = false;
+
+--GUI
+
+local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3')))()
+
+local w = library:CreateWindow("Soda Simulator") 
+
+local b = w:CreateFolder("Auto Farming")
+local c = w:CreateFolder("Teleports") 
+
+b:Toggle("Auto Rebirth",function(bool)
+    getgenv().autoRebirth = bool
+    print('auto rebirth is on')
+    if bool then
+        rebirth()
+    end
+end)
+
+b:Toggle("Auto Drink",function(bool)
+    getgenv().autoDrink = bool
+    print('auto tap is on')
+    if bool then
+        drink()
+    end
+end)
+
+b:Toggle("Auto Burp",function(bool)
+    getgenv().autoBurp = bool
+    print('auto burp is on')
+    if bool then
+        burp()
+    end
+end)
+
+
+c:Button("Teleport to Main area",function()
+    TelportMain()
+end)
+
+c:Button("Teleport to the PVP area",function()
+    TelportPVP()
+end)
+
+c:Button("Teleport to July the 4th Area",function()
+    TelportAmericaArea()
+end)
+
+c:Button("Teleport to Moke Area",function()
+    TelportMokeArea()
+end)
+
+c:Button("Teleport to Cyber Area",function()
+    TelportCyberArea()
+end)
+
+c:Button("Teleport to Disco Party",function()
+    TelportDiscoParty()
+end)
+
+c:Button("Teleport to Candy Land",function()
+    TelportCandyLand()
+end)
+
+c:Button("Teleport to Jungle",function()
+    TelportJungle()
+end)
+
+b:DestroyGui()
+
+--autoFarm Features
+
+function rebirth()
+    spawn(function()
+        while getgenv().autoRebirth == true do
+            game:GetService("ReplicatedStorage").RebirthMe:FireServer()
+            wait(5)
+        end
+    end)
+end
+
+function drink()
+    spawn(function()
+        while getgenv().autoDrink == true do
+            game:GetService("Players").LocalPlayer.Character.Soda.Drink:FireServer()
+            wait()
+        end
+    end)
+end
+
+function burp()
+    spawn(function()
+        while getgenv().autoBurp == true do
+            game:GetService("Players").LocalPlayer.Character.Soda.Burp:FireServer()
+            wait()
+        end
+    end)
+end
+
+function getCurrentPosition()
+    local player = game.Players.LocalPlayer;
+    if player.Character then
+        return player.Character.HumanoidRootPart.Position;
+    end
+    return false;
+end
+
+function TeleportTo(placeCFrame)
+    local player = game.Players.LocalPlayer;
+    if player.Character then
+        player.Character.HumanoidRootPart.CFrame = placeCFrame;
+    end
+end
+
+--Teleports
+
+function TelportJungle()
+    TeleportTo(game:GetService("Workspace").Jungle.Spawns.SpawnLocation.CFrame)
+end
+
+function TelportCandyLand()
+    TeleportTo(game:GetService("Workspace")["Candy Land"].Spawns.SpawnLocation.CFrame)
+end
+
+function TelportDiscoParty()
+    TeleportTo(game:GetService("Workspace")["Disco Party"].Spawns.SpawnLocation.CFrame)
+end
+
+function TelportCyberArea()
+    TeleportTo(game:GetService("Workspace")["Cyber Area"].Spawns.SpawnLocation.CFrame)
+end
+
+function TelportMokeArea()
+    TeleportTo(game:GetService("Workspace")["Moke Area"].Spawns.SpawnLocation.CFrame)
+end
+
+function TelportAmericaArea()
+    TeleportTo(game:GetService("Workspace")["Fourth of July Area"].Spawns.SpawnLocation.CFrame)
+end
+
+function TelportPVP()
+    TeleportTo(game:GetService("Workspace")["PVP Area"].Spawns.SpawnLocation.CFrame)
+end
+
+function TelportMain()
+    TeleportTo(game:GetService("Workspace")["Main Area"].Spawns.SpawnLocation.CFrame)
+end
